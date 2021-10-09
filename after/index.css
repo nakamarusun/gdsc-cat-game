@@ -1,0 +1,85 @@
+html, body {
+  padding: 0;
+  margin: 0;
+  background-color: #c8faa5;
+  font-family: sans-serif;
+}
+
+.middlebox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+}
+
+h1 {
+  color: #53b52a;
+  text-shadow: 3px 3px 8px #24661033;
+}
+
+h2 {
+  color: #4aa62e;
+  font-size: 1rem;
+}
+
+#game {
+  background: #e0ffbd;
+  width: 100vw;
+  height: 360px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+}
+
+#game-grass {
+  background: url("floor.png") repeat-x;
+  width: 120vw;
+  height: 32px;
+  position: absolute;
+  bottom: 5%;
+}
+
+#game-cat {
+  position: absolute;
+  content: url("cat.gif");
+  bottom: 10%;
+  left: 64px;
+}
+
+.game-rock {
+  position: absolute;
+  content: url("rock.png");
+  bottom: 8%;
+  animation: move-rock 10s linear;
+}
+
+.move-left {
+  animation: move-left 0.5s linear infinite;
+}
+
+.cat-jump {
+  animation: cat-jump 0.8s ease 1;
+}
+
+.gone {
+  display: none;
+}
+
+@keyframes move-rock {
+  from { right: 0px; }
+  to { right: 5120px; }
+}
+
+@keyframes move-left {
+  from {left: 0px;}
+  to {left: -256px;}
+}
+
+@keyframes cat-jump {
+  0% {transform: translateY(0px);}
+  50% {transform: translateY(-100px);}
+  100% {transform: translateY(0px);}
+}
