@@ -4,7 +4,6 @@ let ended = false;
 let isJumping = false;
 let scoreUpdater = null;
 let collisionChecker = null;
-let rockPositions = [];
 const cat = document.getElementById("game-cat");
 const grass = document.getElementById("game-grass");
 const gameDiv = document.getElementById("game");
@@ -49,17 +48,12 @@ function startGame() {
 
   collisionChecker = setInterval(() => {
     // Every 100ms, we check the collisions of the rock with the cat.
-    // Because the speed of the rock is 512px/s, we must reduce by 51.2px
-    rockPositions = rockPositions.map((x) => {
-      // Check if the rock is in the cat's range, if it does, end the game.
-      // Cat's position is around 64px to 128px.
-      if (!isJumping && x > (160) && x < (256 + 64)) {
-        gameEnd();
-      }
-
-      return x - 51.2;
-    });
-  }, 100);
+    for (rock of document.querySelectorAll(".game-rock")) {
+    const rockPos = rock.offsetLeft;
+    if (!isJumping && rockPos > 0 && rockPos < 128) {
+      gameEnd();
+    }
+  }}, 50);
 }
 
 function gameEnd() {
@@ -92,13 +86,9 @@ function spawnRock() {
     rock.classList.add("game-rock");
     gameDiv.appendChild(rock);
 
-    // Add the current rock's x position to the array
-    rockPositions.push(gameDiv.offsetWidth);
-
     // Set timer to delete rock and clear first entry in array
     setTimeout(() => {
       gameDiv.removeChild(rock);
-      rockPositions.shift();
     }, 10000);
 
     // Set next timer
